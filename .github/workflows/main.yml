@@ -19,11 +19,18 @@ jobs:
         with:
           python-version: '3.x'
 
-      - run: python post_generator.py
+      - name: Gerar post
+        id: generate
+        run: |
+          output=$(python post_generator.py)
+          echo "$output"
+          title=$(echo "$output" | grep "Titulo:" | sed 's/Titulo: //')
+          echo "title=$title" >> $GITHUB_OUTPUT
 
-      - run: |
+      - name: Commit e push
+        run: |
           git config user.name "ia-bot"
           git config user.email "bot@users.noreply.github.com"
           git add .
-          git commit -m "Posts automáticos sobre IA"
+          git diff --staged --quiet || git commit -m "post: ${{ steps.generate.outputs.title }}"
           git push
