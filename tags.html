@@ -1,0 +1,17 @@
+---
+layout: default
+title: Tags
+---
+
+<h1 class="page-title">Navegar por Tags</h1>
+
+<div class="tags-grid">
+  {% assign sorted_tags = site.tags | sort %}
+  {% for tag in sorted_tags %}<div class="tag-section" id="{{ tag[0] }}">
+      <div class="tag-section-header">
+        <span class="tag-section-name"># {{ tag[0] }}</span>
+        <span class="tag-count">{{ tag[1].size }} post{% if tag[1].size != 1 %}s{% endif %}</span>
+      </div>
+      <ul>{% for post in tag[1] %}<li><a href="{{ post.url | relative_url }}">{{ post.title }}</a><span class="post-date-small">{{ post.date | date: "%d/%m/%Y" }}</span></li>{% endfor %}</ul>
+    </div>{% endfor %}
+</div>

@@ -1,0 +1,24 @@
+---
+layout: default
+---
+<article>
+  <div class="article-header">
+    <h1 class="article-title">{{ page.title }}</h1>
+    <p class="article-meta">Publicado em {{ page.date | date: "%d/%m/%Y" }}</p>
+  </div>
+
+  <div class="article-content">
+    {{ content }}
+  </div>
+
+  {% if page.tags.size > 0 %}
+  <div class="article-footer">
+    <p class="article-footer-label">Tags</p>
+    <div class="article-tags-list">
+      {% for tag in page.tags %}
+        <a href="{{ '/tags.html' | relative_url }}#{{ tag }}" class="tag">{{ tag }}</a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+</article>
